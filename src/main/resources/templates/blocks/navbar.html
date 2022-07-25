@@ -1,0 +1,35 @@
+<th:block  th:fragment="navbar" th:with="userId=${userId}">
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}">TeslaShop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Каталог автомобилей</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Конфигуратор</a>
+                    </li>
+                </ul>
+                <span th:text="${userId}"></span>
+                <button type="button" class="btn btn-light"><a th:href="@{/login}"
+                           th:if="${#authorization.expression('!isAuthenticated()')}">Войти</a></button>
+
+                <a th:href="@{/foruser}" title="Ваша корзина заказов"
+                   th:if="${#authorization.expression('isAuthenticated()')}">
+                    <span>Корзина</span>
+                </a>
+                <form class="d-flex" method="post" th:action="@{/logout}"
+                      th:if="${#authorization.expression('isAuthenticated()')}">
+                    <button type="submit" class="btn btn-light" style="color: #0d6efd;
+    text-decoration: underline;">Выйти</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</th:block>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-components}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid"
+                 style="padding:  25px 0px 10px 0px;margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-md-5">
+                        <a th:href="@{/battery}" type="button" class="btn btn-link">Вернуться к списку батарей</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 2%;margin-left: 5%;">
+
+
+                        <div class="container-fluid" style="padding: 0px">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <h3 style="margin-bottom: 50px;" th:text="${title}"></h3>
+                                    <form th:method="POST" th:action="@{/battery/create-new-battery}">
+                                        <div class="container-fluid" style="padding: 0px">
+                                            <div class="row">
+                                                <div class="col-md-7" style="margin-top: 30px;">
+
+
+                                                    <input name="capacity" required placeholder="Введите название"
+                                                           autocomplete="off"
+                                                           class="form-control"/>
+                                                    <br><br>
+                                                    <input type="number" name="reserve" placeholder="Запас хода"
+                                                           class="form-control"
+                                                           autocomplete="off"/>
+                                                    <br><br>
+                                                    <input type="number" step="0.01" min="0" name="price"
+                                                           placeholder="0.00 $"
+                                                           autocomplete="off" class="form-control"/>
+                                                    <br><br>
+                                                    <a type="button" class="btn btn-secondary" th:href="@{/battery}">Отмена</a>
+                                                    <input type="submit" value="Создать батарею"
+                                                           class="btn btn-success"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+
+                                </div>
+                                <div class="col-md-5" style="margin-left:0px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 100px;"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>tml>

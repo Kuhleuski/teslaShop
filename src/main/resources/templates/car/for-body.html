@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-cars}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid"
+                 style="padding:  25px 0px 10px 0px;margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-md-5" >
+                        <a th:href="@{/car}" type="button" class="btn btn-link">Вернуться к списку комплектаций</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-10" style="margin-top: 2%;margin-left: 5%;">
+                        <h3 style="margin-bottom: 50px;">Создать автомобиль Tesla <span th:text="${body.name}"></span></h3>
+                        <br>
+                        <h3>Давайте создадим новый автомобиль Tesla</h3>
+                        <br>
+                        <p>Автомобиль строится из компонентов. Каждый компонент имеет свою стоимость.</p>
+                        <p>Комбинируя различные компоненты между собой - формируется итоговая стоимость электроавтомобиля Tesla.</p>
+                        <br>
+                        <form method="post">
+                            <input class="form-control" name="bodyId" required th:value="${body.id}"
+                                   readonly type="hidden"/>
+                            <br>
+                            <input type="checkbox" name="toning" th:value="${true}"> Тонировка<Br>
+                            <br>
+                            <div th:if="${allEquipments.isEmpty()}">
+
+                                <p>Для этого кузова нет доступных комплектаций. </p>
+                                <a th:href="${'/equipment/create-from-car='+body.id}"
+                                   type="button" class="btn btn-success">Создать комплектацию для Tesla <span th:text="${body.name}"> </span></a>
+                            </div>
+
+
+                           <div class="col-md-12"  th:unless="${allEquipments.isEmpty()}">
+                            <h5>Комплектация</h5>
+                            <select class="form-select" aria-label="Default select example" name="equipmentId" required>
+                                <option th:each="equipment : ${allEquipments}" th:text="${equipment.name}"
+                                        th:value="${equipment.id}"></option>
+                            </select>
+                           </div>
+                            <h5>Колёса</h5>
+                            <select class="form-select" aria-label="Default select example" name="wheelId" required>
+                                <option selected disabled>Выберите колёса</option>
+                                <option th:each="wheel : ${allWheels}" th:text="${wheel.radius}"
+                                        th:value="${wheel.id}"></option>
+                            </select>
+                            <h5>Цвет</h5>
+                                <div class="form-check col-md-3"
+                                     style="display: inline-block; float: left;margin-right: 10px;" th:each="color : ${allColors}">
+                                    <input class="form-check-input"  type="radio" name="colorId"
+                                           th:value="${color.id}" required th:text="${color.name}">
+                                </div>
+                            <input type="submit" value="Создать автомобиль" class="btn btn-success"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 150px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

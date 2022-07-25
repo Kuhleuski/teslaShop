@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Колёса для автомобилей Tesla</title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-components}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 4%;margin-left: 2%;">
+                        <h3 th:text="${message}" th:if="${wheelsList.isEmpty()}"></h3>
+                        <h3>Список колёсных дисков</h3>
+                        <h3 th:text="${message}" th:if="${wheelsList.isEmpty()}"></h3>
+                        <div class="col-md-12" th:unless="${wheelsList.isEmpty()}">
+                            <table  class="table table-hover align-middle" style="margin-top:40px; ">
+                                <thead>
+                                <tr>
+                                    <th scope="col">№</th>
+                                    <th scope="col">Название</th>
+                                    <th scope="col">Описание</th>
+                                    <th scope="col">Цена</th>
+                                    <th colspan="3">Действия</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="wheel, iter : ${wheelsList}">
+                                    <td th:text="${iter.count}"></td>
+                                    <td th:text="${wheel.radius}"></td>
+                                    <td th:text="${wheel.type}"></td>
+                                    <td th:text="${#numbers.formatDecimal(wheel.price, 0, 'COMMA', 0, 'POINT')}+' $'"></td>
+                                    <td>
+                                        <a th:href="${'/wheel/show-details='+wheel.id}">Подробнее</a>
+                                    </td>
+                                    <td><a th:href="${'/wheel/update-wheel='+wheel.id}">Редактировать</a></td>
+                                    <td>
+                                        <button type="button" data-bs-toggle="modal"
+                                                th:data-bs-target="${'#del'+wheel.id}"
+                                                class="btn-close"></button>
+                                    </td>
+                                    <!-- Modal -->
+                                    <div class="modal fade" th:id="${'del'+wheel.id}" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Внимание</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Вы действительно хотите удалить</p>
+                                                    <h5>Колесо <span th:text="${wheel.radius}"></span></h5>
+                                                    <br>
+                                                    <p>Данные будут полность потеряны без возможности их
+                                                        восстановления.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Отмена
+                                                    </button>
+                                                    <form th:action="'wheel/delete-wheel=' + ${wheel.id}" method="post">
+                                                        <button type="submit" class="btn btn-danger">Удалить</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 150px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

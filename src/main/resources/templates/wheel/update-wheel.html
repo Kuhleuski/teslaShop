@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-components}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid"
+                 style="padding:  25px 0px 10px 0px;margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-md-2" style="text-align: right;">
+                        <a th:href="@{/wheel}" type="button" class="btn btn-secondary">Вернуться назад</a>
+                    </div>
+                    <div class="col-md-10">
+                        <p style="margin-top: 7px;color: #646464;" th:text="${title}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 2%;margin-left: 5%;">
+                        <h3 th:text="${title}" style="margin-bottom: 40px;"></h3>
+                        <form th:method="post">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-3" style="margin-right: 25px;">
+                                        <input type="hidden" th:value="${wheel.id}" name="id"/>
+                                        <h5>Размер колёс: </h5>
+                                        <select class="form-select" aria-label="Default select example" name="radius"
+                                                type="text" required>
+                                            <option selected th:text="${wheel.radius}"
+                                                    th:value="${wheel.radius}"></option>
+                                            <option value="R15">R15</option>
+                                            <option value="R16">R16</option>
+                                            <option value="R17">R17</option>
+                                            <option value="R18">R18</option>
+                                            <option value="R19">R19</option>
+                                            <option value="R20">R20</option>
+                                            <option value="R21">R21</option>
+                                            <option value="R22">R22</option>
+                                        </select>
+                                        <br>
+                                        <h5>Тип: </h5>
+                                        <select class="form-select" aria-label="Default select example" name="type"
+                                                required>
+                                            <option selected th:text="${wheel.type}" th:value="${wheel.type}"></option>
+                                            <option value="Штампованые диски">Штампованые диски</option>
+                                            <option value="Литые диски">Литые диски</option>
+                                        </select>
+                                        <br>
+                                        <h5>Цена: </h5>
+                                        <input type="number" name="price" th:value="${wheel.price}" required
+                                               class="form-control">
+                                        <br><br>
+                                        <input type="submit" value="Сохранить" class="btn btn-success"/>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 100px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

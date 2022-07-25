@@ -1,0 +1,45 @@
+<th:block th:fragment="sidebar-components">
+    <div class="col-md-2 " style="background-color: #212529f2;color:white;min-height: 100%;">
+        <p style="    margin-top: 30px;
+    color: #989898;
+    margin-bottom: 10px;font-size: 15px;">Меню компонентов</p>
+        <ul style="line-height: 2.3; font-size:19px;">
+            <a th:href="@{/body}" style="text-decoration: none; color: white;">
+                <li>Кузов</li>
+            </a>
+            <a th:href="@{/wheel}" style="text-decoration: none; color: white;">
+                <li>Колёса</li>
+            </a>
+            <a th:href="@{/engine}" style="text-decoration: none; color: white;">
+                <li>Двигатель</li>
+            </a>
+            <a th:href="@{/battery}" style="text-decoration: none; color: white;">
+                <li>Батарея</li>
+            </a>
+            <a th:href="@{/equipment}" style="text-decoration: none; color: white;">
+                <li>Комплектация</li>
+            </a>
+            <a th:href="@{/color}" style="text-decoration: none; color: white;">
+                <li style="padding-bottom: 20px;">Цвет</li>
+            </a>
+        </ul>
+        <p style="    margin-top: 15px;
+    color: #989898;
+    margin-bottom: 20px;font-size: 15px;">Добавить компонент</p>
+        <div class="btn-group dropend">
+            <button type="button" class="btn btn-success dropdown-toggle " data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    style="font-size:14px;margin-left: 10px;">
+                &#43; Новый компонент
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" th:href="@{/body/create-new-body}">Создать кузов</a></li>
+                <li><a class="dropdown-item" th:href="@{/wheel/create-new-wheel}">Создать колёса</a></li>
+                <li><a class="dropdown-item" th:href="@{/engine/create-new-engine}">Создать двигатель</a></li>
+                <li><a class="dropdown-item" th:href="@{/battery/create-new-battery}">Создать батарею</a></li>
+                <li><a class="dropdown-item" th:href="@{/equipment/for}">Создать комплектацию</a></li>
+                <li><a class="dropdown-item" th:href="@{/color/create-new-color}">Создать цвет</a></li>
+            </ul>
+        </div>
+    </div>
+</th:block>

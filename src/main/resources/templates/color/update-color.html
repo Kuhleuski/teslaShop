@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-components}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid"
+                 style="padding:  25px 0px 10px 0px;margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a th:href="@{/color}" type="button" class="btn btn-secondary">Вернуться назад</a>
+                    </div>
+                    <div class="col-md-10">
+                        <p style="margin-top: 7px;color: #646464;" th:text="${title}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 2%;margin-left: 5%;">
+                        <h3 th:text="${title}" style="margin-bottom: 40px;"></h3>
+                        <form th:method="post">
+                            <div class="col-md-7" style="margin-right: 25px;">
+                                <input type="hidden" th:value="${color.id}" name="id"/>
+                                <h5>Название цвета</h5>
+                                <input name="name" class="form-control" required th:value="${color.name}"/>
+                                <br>
+                                <h5>Цена</h5>
+                                <input class="form-control" type="number" step="0.01" min="0" name="price"
+                                       th:value="${color.price}" required/>
+                                <br>
+                                <p style="font-size: 14px;color: #4f4f4f;padding-left: 5px;">Стоимость покраски
+                                    автомобиля в данный цвет будет автоматически включаться в общую
+                                    стоимость автомобиля.</p>
+                                <br>
+                                <a type="button" class="btn btn-secondary" th:href="@{/color}">Отмена</a>
+                                <input type="submit" value="Сохранить" class="btn btn-success"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 100px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

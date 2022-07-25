@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-components}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid"
+                 style="padding:  25px 0px 10px 0px;margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-md-5">
+                        <a th:href="@{/equipment}" type="button" class="btn btn-link">Вернуться к списку
+                            комплектаций</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 2%;margin-left: 5%;">
+                        <div class="col-md-8" th:unless="${bodyList.isEmpty()}">
+                            <h3>Создать комплектацию для автомобилей Tesla</h3>
+                            <p>Выберите для какого кузова создать комплектацию:</p>
+                            <br>
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col" th:each="body, iter : ${bodyList}">
+                                    <div class="card">
+                                        <!--                        <img src="..." class="card-img-top" alt="...">-->
+                                        <div class="card-body">
+                                            <h5 class="card-title">Кузов <span th:text="${body.name}"></span></h5>
+                                            <p class="card-text">Тип кузова: <span th:text="${body.type}"></span></p>
+                                            <a th:href="${'/equipment/create='+body.id}" type="button"
+                                               class="btn btn-success">Создать комплектацию</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 150px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

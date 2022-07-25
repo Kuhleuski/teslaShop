@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-components}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid"
+                 style="padding:  25px 0px 10px 0px;margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-md-2" style="text-align: right;">
+                        <a th:href="@{/wheel}" type="button" class="btn btn-secondary">Вернуться назад</a>
+                    </div>
+                    <div class="col-md-10">
+                        <p style="margin-top: 7px;color: #646464;" th:text="${title}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 2%;margin-left: 5%;">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <p>Размер колеса:</p>
+                                            <h2 th:text="${wheel.radius}"></h2>
+                                            <p style="margin-top: 30px;">Цена продажи:</p>
+                                            <h2 th:text="${#numbers.formatDecimal(wheel.price, 0, 'COMMA', 0, 'POINT')}+' $'"
+                                                style="margin-bottom: 30px;"></h2>
+                                            <a type="button" class="btn btn-primary"
+                                               th:href="${'/wheel/update-wheel='+wheel.id}">Редактировать</a>
+                                            <button type="button" data-bs-toggle="modal"
+                                                    th:data-bs-target="${'#del'+wheel.id}"
+                                                    class="btn btn-link" style="margin-top: 15px;">Удалить колесо
+                                            </button>
+                                        </div>
+                                        <div class="col-md-5" style="margin-bottom: 250px;">
+                                            <table class="table" style="margin-bottom: 50px;">
+                                                <thead>
+                                                <tr>
+                                                    <th colspan="2">Характеристики</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Размер</td>
+                                                    <td th:text="${wheel.radius}" class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Тип диска</td>
+                                                    <td th:text="${wheel.type}" class="text-end"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- Modal -->
+                                            <div class="modal fade" th:id="${'del'+wheel.id}" tabindex="-1"
+                                                 aria-labelledby="exampleModal"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Внимание</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Вы действительно хотите удалить</p>
+                                                            <h5>Колесо <span th:text="${wheel.radius}"></span>:</h5>
+                                                            <p>Тип: <span th:text="${wheel.type}+' л/с'"></span></p>
+
+                                                            <br>
+                                                            <p>Данные будут полность потеряны без возможности их
+                                                                восстановления.</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Отмена
+                                                            </button>
+                                                            <form th:action="'delete-wheel=' + ${wheel.id}"
+                                                                  method="post">
+                                                                <button type="submit" class="btn btn-danger">Удалить
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--конец модального-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 150px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

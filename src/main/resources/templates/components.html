@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все двигатели</title>
+    <th:block th:replace="~{head}"></th:block>
+    <style>
+        html,
+        body,
+        .wrapper {
+            height: 100%;
+        }
+        .content {
+            box-sizing: border-box;
+            min-height: 100%;
+
+        }
+        li {
+            list-style-type: none;
+        }
+        ul {
+            margin-left: 0px;
+            padding-left: 15px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content">
+        <div class="col-md-2 " style="background-color: #212529;color:white;min-height: 100%;">
+            <h6 style="    margin-top: 30px;
+    color: #686869;
+    margin-bottom: 10px;">Компоненты</h6>
+            <ul style="line-height: 2.3; font-size:19px;border-bottom: solid 1px #4f4f4f;">
+                <li>Кузов</li>
+                <li>Колёса</li>
+                <li>Двигатели</li>
+                <li>Батареи</li>
+                <li>Комплектации</li>
+                <li style="">Цвет</li>
+
+            </ul>
+            <h6 style="    margin-top: 30px;
+    color: #686869;
+    margin-bottom: 20px;">Новый компонент</h6>
+            <div class="btn-group dropend">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Создать
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Добавить кузов</a></li>
+                    <li><a class="dropdown-item" href="#">Добавить колесо</a></li>
+                    <li><a class="dropdown-item" href="#">Добавить Цвет</a></li>
+                    <li><a class="dropdown-item" href="#">Добавить Двигатель</a></li>
+                    <li><a class="dropdown-item" href="#">Добавить Батарею</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10" >
+
+            <table class="table table-hover align-middle" style="margin-top: 20px;">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Мощность</th>
+                    <th scope="col">Привод</th>
+                    <th scope="col">Цена</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Удалить</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td >q</td>
+                    <td></td>
+                    <td></td>
+                    <td ></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:insert="~{blocks/footer}"></div>
+</body>
+</html>

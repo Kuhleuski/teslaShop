@@ -1,0 +1,19 @@
+<th:block th:fragment="sidebar-cars">
+    <div class="col-md-2 " style="background-color: #212529f2;color:white;min-height: 100%;">
+        <p style="    margin-top: 30px;
+    color: #989898;
+    margin-bottom: 10px;font-size: 15px;">Меню автомобилей</p>
+        <ul style="line-height: 2.3; font-size:19px;">
+            <a th:href="@{/car}" style="text-decoration: none; color: white;">
+                <li>В наличии</li>
+            </a>
+        </ul>
+        <p style="    margin-top: 15px;
+    color: #989898;
+    margin-bottom: 20px;font-size: 15px;">Добавить автомобиль</p>
+        <a class="btn btn-success" style="font-size:14px;margin-left: 10px;" th:href="@{car/create-car}"
+           type="button">
+            &#43; Новый автомобиль
+        </a>
+    </div>
+</th:block>

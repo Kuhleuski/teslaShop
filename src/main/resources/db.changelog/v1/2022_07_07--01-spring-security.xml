@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="1" author="kuhleuski">
+        <sql>
+            create table if not exists users(
+                id BIGINT primary key auto_increment,
+                user_name VARCHAR(16) NOT NULL UNIQUE,
+                email VARCHAR(100),
+                password VARCHAR(255) NOT NULL
+                );
+        </sql>
+    </changeSet>
+    <changeSet id="2" author="kuhleuski">
+        <createTable tableName="body">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_car"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(255)"/>
+            <column name="number_of_seats" type="INT"/>
+            <column name="weight" type="DOUBLE"/>
+            <column name="width" type="DOUBLE"/>
+            <column name="height" type="DOUBLE"/>
+            <column name="length" type="DOUBLE"/>
+            <column name="trunk" type="INT"/>
+            <column name="wheel_base" type="DOUBLE"/>
+            <column name="price" type="DOUBLE"/>
+        </createTable>
+        <createTable tableName="body_type">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_car"/>
+            </column>
+            <column name="name" type="VARCHAR(150)"/>
+        </createTable>
+        <createTable tableName="engine">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_engine"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="accelerate" type="DOUBLE"/>
+            <column name="drive_unit" type="VARCHAR(255)"/>
+            <column name="power" type="INT"/>
+            <column name="max_speed" type="INT"/>
+            <column name="torque" type="INT"/>
+            <column name="price" type="DOUBLE"/>
+        </createTable>
+        <createTable tableName="battery">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_battery"/>
+            </column>
+            <column name="capacity" type="VARCHAR(255)"/>
+            <column name="reserve" type="INT"/>
+            <column name="price" type="DOUBLE"/>
+        </createTable>
+    <createTable tableName="wheel">
+        <column autoIncrement="true" name="id" type="INT">
+            <constraints nullable="false" primaryKey="true" primaryKeyName="pk_wheel"/>
+        </column>
+        <column name="radius" type="VARCHAR(255)"/>
+        <column name="type" type="VARCHAR(255)"/>
+        <column name="price" type="DOUBLE"/>
+    </createTable>
+        <createTable tableName="color">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_color"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="price" type="DOUBLE"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="kuhleuski">
+        <sql>
+            INSERT INTO users (user_name, password,email)
+            VALUES ( 'admin', '$2y$12$kjBEvSNH8oN9508Vi8gpLOxzxsfc7H/HLRTQatlR4z3JOzrC4YXB6','admin@mail.ru');
+        </sql>
+        <sql>
+            create table if not exists  roles(
+                     user_id BIGINT primary key auto_increment,
+                     roles varchar(200)
+                );
+        </sql>
+        <sql>
+            INSERT INTO roles (user_id, roles)
+            VALUES ( 1, 'ADMIN');
+        </sql>
+        <sql>
+            INSERT INTO body ( name, type, number_of_seats, weight, width, height, length, trunk, wheel_base, price ) VALUES ( 'Model 3' , 'Седан' , '5' , '1500' , '2300' , '1424' , '4250' , '690' , '2375' , '13300' ),
+                                                                                                                          ( 'Model X' , 'Кроссовер' , '7' , '2338' , '2324' , '1680' , '4981' , '1200' , '1375' , '33900' ),
+                                                                                                                          ( 'Model Y' , 'Кроссовер' , '5' , '2003' , '5324' , '2680' , '3981' , '1926' , '2890' , '25100' ),
+                                                                                                                          ( 'Model S' , 'Седан' , '5' , '1500' , '1964' , '1445' , '4970' , '1690' , '2960' , '73300' );
+        </sql>
+        <sql>
+            INSERT INTO battery ( capacity, reserve, price ) VALUES ( '100 Кв/ч' , '580'  , '13300'),
+                                                                    ( '69 Кв/ч' , '420'  , '7450'),
+                                                                    ( '82 Кв/ч' , '490'  , '11520'),
+                                                                    ( '85 Кв/ч' , '530'  , '16500'),
+                                                                    ( '90 Кв/ч' , '644'  , '22100');
+        </sql>
+        <sql>
+            INSERT INTO engine ( name,accelerate, max_speed,power,torque,drive_unit,price) VALUES ( 'Dual Motor','3', '290','600','444','Полный привод (AWD)','73300'),
+                                                                                                ( 'Tri Motor','2', '290','1200','444','Полный привод (AWD)','120300'),
+                                                                                                ( 'Rear Motor','5.1', '290','600','444','Задний привод (RWD)','11300'),
+                                                                                                ( 'Dual Motor','2', '330','900','444','Полный привод (AWD)','99675');
+        </sql>
+
+        <sql>
+            INSERT INTO wheel ( radius,type, price ) VALUES ( 'R16','Штампованные диски','1300'),
+                                                            ( 'R17','Штампованные диски','1920'),
+                                                            ( 'R18','Литые диски','2340'),
+                                                            ( 'R19','Литые диски','4910'),
+                                                            ( 'R20','Литые диски','6190'),
+                                                            ( 'R21','Литые диски','11200');
+        </sql>
+        <sql>
+            INSERT INTO color ( name, price ) VALUES ( 'Жемчужно-белый (Базовый)','0'),
+                                                     ( 'Серебристый металлик (Базовый)','0'),
+                                                     ( 'Глубокий синий металлик','1000'),
+                                                     ( 'Касный (Многослойное покрытие)','2000'),
+                                                     ( 'Чёрный (Многослойное покрытие)','1500');
+
+        </sql>
+        <sql>
+            INSERT INTO body_type ( name) VALUES ( 'Седан'),
+                                                     ( 'Кроссовер'),
+                                                     ( 'Хэтчбэк'),
+                                                     ( 'Универсал'),
+                                                     ( 'Микроавтобус');
+
+        </sql>
+    </changeSet>
+</databaseChangeLog>
+

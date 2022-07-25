@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div class="container mt-5 mb-5">
+    <h1>Редактировать лошадь</h1>
+    <div th:each="type : ${bodyType}">
+        <form method="post">
+            <input type="text" th:value="${type.name}" name="name"
+                   class="form-control"></br>
+            </br>
+            <button type="submit" class="btn btn-success">Обновить</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

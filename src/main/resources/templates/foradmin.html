@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>For admin</title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}" ></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-6" style="margin-top:50px; ">
+                    <h3>Автомобили</h3>
+                    <table class="table" style="padding-left: 3%;">
+                        <tbody>
+                        <tr>
+                            <td>Автомобили Tesla в наличии:</td>
+                            <td th:text="${countCars}+' шт.'"></td>
+                            <td><a th:href="@{/car}">Подробнее...</a></td>
+                        </tr>
+                        <tr>
+                            <td>Проданные автомобили:</td>
+                            <td>${countSoldCars} шт.</td>
+                            <td><a href="#">Подробнее...</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3 style="margin-top: 70px;margin-bottom: 15px;">Все доступные компоненты</h3>
+                    <table class="table" style="padding-left: 3%;">
+                        <tbody>
+                        <tr>
+                            <td>Кузов:</td>
+                            <td th:text="${countBody}+' шт.'"></td>
+                            <td><a th:href="@{/body}">Подробнее...</a></td>
+                        </tr>
+                        <tr>
+                            <td>Колёса:</td>
+                            <td th:text="${countWheels}+' шт.'"></td>
+                            <td><a th:href="@{/wheel}">Подробнее...</a></td>
+                        </tr>
+                        <tr>
+                            <td>Двигатель:</td>
+                            <td th:text="${countEngines}+' шт.'"></td>
+                            <td><a th:href="@{/engine}">Подробнее...</a></td>
+                        </tr>
+                        <tr>
+                            <td>Батарея:</td>
+                            <td th:text="${countBattery}+' шт.'"></td>
+                            <td><a th:href="@{/battery}">Подробнее...</a></td>
+                        </tr>
+                        <tr>
+                            <td>Цвет:</td>
+                            <td th:text="${countColors}+' шт.'"> шт.</td>
+                            <td><a th:href="@{/color}">Подробнее...</a></td>
+                        </tr>
+                        <tr>
+                            <td>Комплектация:</td>
+                            <td th:text="${countEquipment}+' шт.'"></td>
+                            <td><a th:href="@{/equipment}">Подробнее...</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5" style="margin-top: 60px;">
+                    <p style="color: #373737;
+    background-color: aliceblue;
+    padding: 5% 10%;
+    margin-bottom: 50px;font-size:20px;">Сегодня: <span><fmt:formatDate type="date" value="${now}"/></span></p>
+                    <h5 style="margin-bottom: 15px;">Статистика последних 5-ти продаж</h5>
+                    <c:set var="count" value="0" scope="page"/>
+                    <table class="table table-hover align-middle table-bordered" style="margin-top:10px; ">
+                        <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Дата</th>
+                            <th>Сумма</th>
+                            <th>Автомобиль</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <jsp:useBean id="deals" scope="request" type="java.util.List"/>
+                        <c:forEach var="deal" items="${deals}">
+                            <c:set var="count" value="${count + 1}" scope="page"/>
+                            <tr>
+                                <td><c:out value="${count}"/></td>
+                                <td><fmt:formatDate type="date" value="${deal.date}" pattern="yyyy-MM-dd"/></td>
+                                <td><fmt:formatNumber value="${deal.amount}" type="currency" pattern="#,##0"/> $</td>
+                                <td>${deal.carName} ${deal.equipmentName}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    <p style="padding: 3%; font-size: 14px;">Чтобы посмотреть полную статистику продаж за весь период,
+                        перейтите по ссылке ниже.</p>
+                    <div class="row " style="text-align: right;margin-bottom: 15px;">
+                        <a href="all-deals">
+                            <button type="button" class="btn btn-primary">Посмотреть статистику</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+
+
+
+<div th:insert="~{blocks/footer}" ></div>
+</body>
+</html>

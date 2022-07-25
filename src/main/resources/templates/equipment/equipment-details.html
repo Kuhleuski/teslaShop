@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-components}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid"
+                 style="padding:  25px 0px 10px 0px;margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-md-2" style="text-align: right;">
+                        <a th:href="@{/wheel}" type="button" class="btn btn-secondary">Вернуться назад</a>
+                    </div>
+                    <div class="col-md-10">
+                        <p style="margin-top: 7px;color: #646464;" th:text="${title}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 2%;margin-left: 5%;">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12" style="margin-bottom: 100px;">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <p>Название комплектации:</p>
+                                            <h2 th:text="${equipment.name}"></h2>
+                                            <p style="margin-top: 30px;">Себестоимость:</p>
+                                            <h2 th:text="${#numbers.formatDecimal(equipment.engine.price+equipment.battery.price, 0, 'COMMA', 0, 'POINT')}+' $'"
+                                                style="margin-bottom: 30px;"></h2>
+                                            <a href='<c:url value="/edit-engine?id=${engine.id}" />'
+                                               style="padding: 2%">
+                                                <button type="button" class="btn btn-primary">&#x270E; Редактировать
+                                                </button>
+                                            </a>
+                                            <button type="button" data-bs-toggle="modal"
+                                                    th:data-bs-target="${'#del'+equipment.id}"
+                                                    class="btn btn-link" style="margin-top: 15px;">Удалить комплектацию
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table" style="margin-bottom: 40px;">
+                                                <thead>
+                                                <tr>
+                                                    <th colspan="2">Характеристики</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Название</td>
+                                                    <td th:text="${equipment.name}" class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Привод</td>
+                                                    <td th:text="${equipment.engine.driveUnit}" class="text-end"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table" style="margin-bottom: 40px;">
+                                                <thead>
+                                                <tr>
+                                                    <th colspan="2">Двигатель</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Название двигателя</td>
+                                                    <td th:text="${equipment.engine.name}" class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Мощность</td>
+                                                    <td th:text="${equipment.engine.power}+' л/с'"
+                                                        class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Крутящий момент</td>
+                                                    <td th:text="${equipment.engine.torque}+' Н/м'"
+                                                        class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Разгон до 100 км/ч
+                                                    </td>
+                                                    <td th:text="${equipment.accelerate}+' сек'" class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Максимальная скорость</td>
+                                                    <td th:text="${equipment.maxSpeed}+' км/ч'" class="text-end"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table" style="margin-bottom: 40px;">
+                                                <thead>
+                                                <tr>
+                                                    <th colspan="2">Батарея</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Батарея, ёмкость</td>
+                                                    <td th:text="${equipment.battery.capacity}" class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Запас хода</td>
+                                                    <td th:text="${equipment.battery.reserve}+' км/ч'"
+                                                        class="text-end"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table" style="margin-bottom: 40px;">
+                                                <thead>
+                                                <tr>
+                                                    <th colspan="2">Стоимость компонентов:</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Двигатель:</td>
+                                                    <td th:text="${#numbers.formatDecimal(equipment.engine.price, 0, 'COMMA', 0, 'POINT')}+' $'"
+                                                        class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Батарея:</td>
+                                                    <td th:text="${#numbers.formatDecimal(equipment.battery.price, 0, 'COMMA', 0, 'POINT')}+' $'"
+                                                        class="text-end"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- Modal -->
+                                            <div class="modal fade" th:id="${'del'+equipment.id}" tabindex="-1"
+                                                 aria-labelledby="exampleModal"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Внимание</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Вы действительно хотите удалить</p>
+                                                            <h5>Комплектацию <span th:text="${equipment.name}"></span>
+                                                            </h5>
+                                                            <br>
+                                                            <p>Данные будут полность потеряны без возможности их
+                                                                восстановления.</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Отмена
+                                                            </button>
+                                                            <form th:action="'delete-body=' + ${equipment.id}"
+                                                                  method="post">
+                                                                <button type="submit" class="btn btn-danger">Удалить
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--конец модального-->
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 150px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <th:block th:replace="~{head}"></th:block>
+    <style>
+        .login-page {
+            width: 100%;
+            height: 100vh;
+            /*display: inline-block;*/
+            /*display: flex;*/
+            align-items: center;
+        }
+
+        .form-right i {
+            font-size: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="login-page bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <h3 class="mb-3">Страница регистрации</h3>
+                <div class="bg-white shadow rounded">
+                    <div class="row">
+                        <div class="col-md-7 pe-0">
+                            <div class="form-left h-100 py-5 px-5">
+                                <form th:action="@{/registration}" method="post" class="row g-4">
+                                    <div class="col-11">
+
+                                        <p>Зарегистрированные пользователи получают доступ в Личный кабинет на сайте
+                                            teslaShop.by
+                                            и могут совершать покупки.
+                                        </p>
+                                        <br>
+
+                                        <label>Имя пользователя<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="username"
+                                                   placeholder="Введите имя" required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-11">
+                                        <label>Password<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" name="password"
+                                                   placeholder="Введите пароль" required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-11">
+                                        <label>поле<span class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input type="email" class="form-control" placeholder="Email"
+                                                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
+                                                   name="email"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12" style="margin-top: 0px;">
+                                        <button type="submit" class="btn btn-primary px-4  mt-4">Зарегистрироваться
+                                        </button>
+                                    </div>
+                                </form>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="col-md-5 ps-0  d-md-block">
+                            <div class="form-right h-100 bg-primary text-white text-left pt-5" style="padding:15px;">
+                                <i class="bi bi-bootstrap"></i>
+                                <h5 class="fs-1" style="text-align: center;">Преимущества</h5>
+
+                                <ul>
+                                    <li>Совершать покупки</li>
+                                    <li>Создавать заявки на авто</li>
+                                    <li>В личном кабинете отслеживать всю статистику</li>
+                                </ul>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-secondary mt-3">2022 It Academy</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+
+
+<!--<div th:replace="~{blocks/navbar}" ></div>-->
+
+<!--<h2>Login page</h2>-->
+
+<!--<form th:action="@{/login}" method="post">-->
+<!--  username: <input type="text" name="username"/>-->
+<!--  password: <input type="password" name="password"/> &lt;!&ndash;можно тип поменять на password &ndash;&gt;-->
+<!--  <input type="submit" value="login"/>-->
+<!--</form>-->
+<!--<br>-->
+
+
+<!--<br>-->
+<!--<h3>Если у вас ещё нет учетной записи, тогда нужно проити регистрацию</h3>-->
+<!--<br>-->
+<!--<a th:href="@{/registration}">Registration page</a><br>-->
+<!--<div th:insert="~{blocks/footer}" ></div>-->
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+
+<!--<div class="">-->
+<!--  <p class="text-center"> 2022 It Academy </p>-->
+<!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>-->
+
+<!--</div>-->
+
+</body>
+</html>

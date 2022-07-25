@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar}"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-6">
+                    <h3 style="margin-top: 50px;" th:text="${title}"></h3>
+                    <table class="table " style="margin-top: 40px;">
+                        <tbody>
+                        <tr>
+                            <td>Тип кузова</td>
+                            <td th:text="${car.body.type}"></td>
+                        </tr>
+                        <tr>
+                            <td>Цвет</td>
+                            <td th:text="${car.color.name}"></td>
+                        </tr>
+                        <tr>
+                            <td>Количество сидений</td>
+                            <td th:text="${car.body.numberOfSeats}"></td>
+                        </tr>
+                        <tr>
+                            <td>Объём багажника</td>
+                            <td th:text="${car.body.trunk}  + ' литров'"></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-center">Габариты</th>
+                        </tr>
+                        <tr>
+                            <td>Высота</td>
+                            <td th:text="${car.body.height} + ' мм'"></td>
+                        </tr>
+                        <tr>
+                            <td>Длина</td>
+                            <td th:text="${car.body.length} + ' мм'"></td>
+                        </tr>
+                        <tr>
+                            <td>Ширина</td>
+                            <td th:text="${car.body.width} + ' мм'"></td>
+                        </tr>
+                        <tr>
+                            <td>Вес</td>
+                            <td th:text="${car.body.weight} + ' кг'"></td>
+                        </tr>
+                        <tr>
+                            <td>Колёсная база</td>
+                            <td th:text="${car.body.wheelBase} + ' мм'"></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-center">Силовая установка</th>
+                        </tr>
+                        <tr>
+                            <td>Название двигателя</td>
+                            <td th:text="${car.equipment.engine.name}"></td>
+                        </tr>
+                        <tr>
+                            <td>Привод</td>
+                            <td th:text="${car.equipment.engine.driveUnit}"></td>
+                        </tr>
+                        <tr>
+                            <td>Мощность</td>
+                            <td th:text="${car.equipment.engine.power} + ' л/с'"></td>
+                        </tr>
+                        <tr>
+                            <td>Крутящий момент</td>
+                            <td th:text="${car.equipment.engine.torque} + ' н/м'"></td>
+                        </tr>
+                        <tr>
+                            <td>Разгон до 100 км/ч</td>
+                            <td th:text="${car.equipment.accelerate} + ' с'"></td>
+                        </tr>
+                        <tr>
+                            <td>Максимальная скорость</td>
+                            <td th:text="${car.equipment.maxSpeed} + ' км/ч'"></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-center">Батарея</th>
+                        </tr>
+                        <tr>
+                            <td>Ёмкость батареи</td>
+                            <td th:text="${car.equipment.battery.capacity}"></td>
+                        </tr>
+                        <tr>
+                            <td>Запас хода</td>
+                            <td th:text="${car.equipment.battery.reserve}"></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2" class="text-center">Колёса</th>
+                        </tr>
+                        <tr>
+                            <td>Размер колеса</td>
+                            <td th:text="${car.wheel.radius}"></td>
+                        </tr>
+                        <tr>
+                            <td>Тип колеса</td>
+                            <td th:text="${car.wheel.type}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-1">
+                </div>
+                <div class="col-5">
+                    <div class="container" style="margin-top: 50px;
+    background-color: #f4faff;
+    padding: 10%;
+    border-radius: 5px;">
+                        <h5>Колькулятор стоимости:</h5>
+                        <br>
+                        <p th:text="'Комплектация ' + ${car.equipment.name}"></p>
+                        <p th:text=" 'Кузов : ' + ${#numbers.formatDecimal(car.body.price, 0, 'COMMA', 0, 'POINT')}+' $'">
+                        </p>
+
+                        <p th:text="'Двигатель : ' + ${#numbers.formatDecimal(car.equipment.engine.price, 0, 'COMMA', 0, 'POINT')}+' $'">
+                        </p>
+
+                        <p th:text="'Батарея : ' + ${#numbers.formatDecimal(car.equipment.battery.price, 0, 'COMMA', 0, 'POINT')}+' $'">
+                        </p>
+
+                        <p th:text="'Покраска : ' + ${#numbers.formatDecimal(car.color.price, 0, 'COMMA', 0, 'POINT')}+' $'">
+                        </p>
+                        <span th:text="Базовый" th:if="${car.color.price == 0}"></span>
+
+                        <p th:text="'Колёса : ' + ${#numbers.formatDecimal(car.wheel.price, 0, 'COMMA', 0, 'POINT')}+' $'">
+                        </p>
+                        <br>
+                        <h5 th:text="'Итоговая сумма : ' + ${#numbers.formatDecimal(car.body.price + car.equipment.engine.price
+                                                 + car.equipment.battery.price + car.wheel.price + car.color.price, 0, 'COMMA', 0, 'POINT')}+' $'">
+                        </h5>
+                        <a th:href="@{/registration}" th:if="${user == null}">Купить</a>
+                        <a th:href="@{/registration}" th:if="${user != null}">Купить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+<div th:insert="~{blocks/footer}"></div>
+</body>
+</html>

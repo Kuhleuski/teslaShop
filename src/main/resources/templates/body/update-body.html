@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-components}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid"
+                 style="padding:  25px 0px 10px 0px;margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-md-2" style="text-align: right;">
+                        <a th:href="@{/body}" type="button" class="btn btn-secondary">Вернуться назад</a>
+                    </div>
+                    <div class="col-md-10">
+                        <p style="margin-top: 7px;color: #646464;" th:text="${title}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 2%;margin-left: 5%;">
+                        <h3 th:text="${title}" style="margin-bottom: 40px;"></h3>
+                        <form method="post">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-3" style="margin-right: 25px;">
+                                        <input type="hidden" th:value="${body.id}" name="id"/>
+                                        <h6>Название:</h6>
+                                        <input name="name" th:value="${body.name}" required class="form-control"/>
+                                        <br><br>
+                                        <h6>Тип кузова: </h6>
+                                        <select class="form-select" aria-label="Default select example" name="type"
+                                                type="text" required>
+                                            <option selected th:text="${body.type}" th:value="${body.type}"></option>
+                                            <option value="Седан">Седан</option>
+                                            <option value="Кроссовер">Кроссовер (SUV)</option>
+                                            <option value="Кроссовер">Хетчбэк</option>
+                                            <option value="Кроссовер">Универсал</option>
+                                            <option value="Кроссовер">Микроавтобус</option>
+                                            <option value="Кроссовер">Купе</option>
+                                        </select>
+                                        <br><br>
+                                        <h6>Количество мест: </h6>
+                                        <input type="number" name="numberOfSeats" th:value="${body.numberOfSeats}"
+                                               class="form-control" required/>
+                                        <br><br>
+                                        <h6>Объём багажника, л. </h6>
+                                        <input type="number" name="trunk" th:value="${body.trunk}" class="form-control"
+                                               required/>
+                                    </div>
+                                    <div class="col-md-3" style="margin-right: 25px;">
+                                        <h6>Вес, кг. </h6>
+                                        <input type="number" step="0.01" min="0" name="weight" th:value="${body.weight}"
+                                               class="form-control" required/>
+                                        <br><br>
+                                        <h6>Ширина, мм. </h6>
+                                        <input type="number" step="0.01" min="0" name="width" th:value="${body.width}"
+                                               class="form-control" required/>
+                                        <br><br>
+                                        <h6>Высота, мм. </h6>
+                                        <input type="number" step="0.01" min="0" name="height" th:value="${body.height}"
+                                               class="form-control" required/>
+                                        <br><br>
+                                        <h6>Длина, мм. </h6>
+                                        <input type="number" step="0.01" min="0" name="length" th:value="${body.length}"
+                                               class="form-control" required/>
+                                    </div>
+                                    <div class="col-md-3" style="margin-right: 25px;">
+                                        <h6>Колёсная база, мм.</h6>
+                                        <input type="number" step="0.01" min="0" name="wheelBase"
+                                               th:value="${body.wheelBase}" class="form-control" required/>
+                                        <br><br>
+                                        <h6>Цена, $</h6>
+                                        <input type="number" name="price" th:value="${body.price}" required
+                                               class="form-control">
+                                        <br><br>
+                                        <a type="button" class="btn btn-secondary" th:href="@{/body}">Отмена</a>
+                                        <input type="submit" value="Сохранить" class="btn btn-success"/>
+                                    </div>
+                                    <br><br>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 100px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

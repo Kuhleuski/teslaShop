@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-cars}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid"
+                 style="padding:  25px 0px 10px 0px;margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-md-2" style="text-align: right;">
+                        <a th:href="@{/car}" type="button" class="btn btn-secondary">Вернуться назад</a>
+                    </div>
+                    <div class="col-md-10">
+                        <p style="margin-top: 7px;color: #646464;" th:text="${title}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-11" style="margin-top: 2%;margin-left: 5%;">
+
+
+                        <form method="post">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <h5>Комплектация:</h5>
+                                    <select class="form-select" aria-label="Default select example" name="equipmentId">
+                                        <option selected th:value="${car.equipment.id}"
+                                                th:text="${car.equipment.name}"></option>
+                                        <option th:each="equipment : ${allEquipments}" th:value="${equipment.id}"
+                                                th:text="${equipment.name}"></option>
+                                    </select>
+                                    <br><br>
+                                    <h5>Колёса:</h5>
+                                    <select class="form-select" aria-label="Default select example" name="wheelId">
+                                        <option selected th:value="${car.wheel.id}"
+                                                th:text="${car.wheel.radius}"></option>
+                                        <option th:each="wheel : ${allWheels}" th:value="${wheel.id}"
+                                                th:text="${wheel.radius}"></option>
+                                    </select>
+                                    <br><br>
+                                    <h5>Цвет:</h5>
+                                    <select class="form-select" aria-label="Default select example" name="colorId">
+                                        <option selected th:value="${car.color.id}"
+                                                th:text="${car.color.name}"></option>
+                                        <option th:each="color : ${allColors}" th:value="${color.id}"
+                                                th:text="${color.name}"></option>
+                                    </select>
+                                    <br><br>
+                                    <input type="submit" value="Сохранить изменения" class="btn btn-success"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 100px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

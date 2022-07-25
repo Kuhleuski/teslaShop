@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Колёса для автомобилей Tesla</title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-components}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 4%;margin-left: 2%;">
+                        <h3 th:text="${message}" th:if="${colorList.isEmpty()}"></h3>
+                        <h3>Список цветов автомобилей Tesla</h3>
+                        <h3 th:text="${message}" th:if="${colorList.isEmpty()}"></h3>
+                        <div class="col-md-12" th:unless="${colorList.isEmpty()}">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">№</th>
+                                    <th scope="col">Название</th>
+                                    <th scope="col">Стоимость</th>
+                                    <th scope="col">Доступен для:</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="color, iter : ${colorList}">
+                                    <td th:text="${iter.count}"></td>
+                                    <td th:text="${color.name}"></td>
+                                    <td th:text="${#numbers.formatDecimal(color.price, 0, 'COMMA', 0, 'POINT')}+' $'"></td>
+                                    <td>Кузова</td>
+                                    <td>
+
+                                        <a th:href="${'/color/update-color='+color.id}">Редактировать</a>
+                                    </td>
+                                    <td>
+                                        <button type="button" data-bs-toggle="modal"
+                                                th:data-bs-target="${'#del'+color.id}" class="btn-close">
+                                        </button>
+                                    </td>
+                                    <!--                         Modal-->
+                                    <div class="modal fade" th:id="${'del'+color.id}" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Внимание</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Вы действительно хотите удалить</p>
+                                                    <h5>Цвет <span th:text="${color.name}"></span>:</h5>
+                                                    <br>
+                                                    <p>Данные будут полность потеряны без возможности их
+                                                        восстановления.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Отмена
+                                                    </button>
+                                                    <form th:action="'color/delete-color=' + ${color.id}" method="post">
+                                                        <button type="submit" class="btn btn-danger">Удалить</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 150px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Подробная информация</title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-components}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid"
+                 style="padding:  25px 0px 10px 0px;margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-md-2" style="text-align: right;">
+                        <a th:href="@{/body}" type="button" class="btn btn-secondary">Вернуться назад</a>
+                    </div>
+                    <div class="col-md-10">
+                        <p style="margin-top: 7px;color: #646464;">Подробная информация o Кузове <span
+                                th:text="${body.name}"></span>, <span th:text="${body.type}"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 2%;margin-left: 5%;">
+
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-12" style="margin-bottom: 100px;">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <p>Название кузова:</p>
+                                            <h2 th:text="${body.name}"></h2>
+                                            <p style="margin-top: 30px;">Цена продажи:</p>
+                                            <h2 th:text="${#numbers.formatDecimal(body.price, 0, 'COMMA', 0, 'POINT')}+' $'"
+                                                style="margin-bottom: 30px;"></h2>
+                                            <a type="button" class="btn btn-primary"
+                                               th:href="${'/body/update-body='+body.id}">Редактировать</a>
+                                            <br>
+                                            <button type="button" data-bs-toggle="modal"
+                                                    th:data-bs-target="${'#del'+body.id}"
+                                                    class="btn btn-light" style="margin-top: 15px;">Удалить кузов
+                                            </button>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table" style="margin-bottom: 50px;">
+                                                <thead>
+                                                <tr>
+                                                    <th colspan="2">Характеристики</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Тип корпуса</td>
+                                                    <td th:text="${body.type}" class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Количество мест</td>
+                                                    <td th:text="${body.numberOfSeats}+' мест'" class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Объём багажника</td>
+                                                    <td th:text="${body.trunk}+' л.'" class="text-end">
+                                                        <!--                                <fmt:formatNumber value="${body.trunk}" pattern="#,#00"/> л.-->
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th colspan="2">Габариты</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>Длина</td>
+                                                    <td th:text="${body.length}+' мм.'" class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Высота
+                                                    </td>
+                                                    <td th:text="${body.height}+' мм.'" class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ширина
+                                                    </td>
+                                                    <td th:text="${body.width}+' мм.'" class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Вес
+                                                    </td>
+                                                    <td th:text="${body.weight}+' кг.'" class="text-end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Колёсная база
+                                                    </td>
+                                                    <td th:text="${body.wheelBase}+' мм.'" class="text-end"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- Modal -->
+                                            <div class="modal fade" th:id="${'del'+body.id}" tabindex="-1"
+                                                 aria-labelledby="exampleModal"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Внимание</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Вы действительно хотите удалить</p>
+                                                            <h5>Кузов <span th:text="${body.name}"></span></h5>
+                                                            <p>Тип: <span th:text="${body.type}"></span></p>
+                                                            <br>
+                                                            <p>Данные будут полность потеряны без возможности их
+                                                                восстановления.</p>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Отмена
+                                                            </button>
+                                                            <form th:action="'delete-body=' + ${body.id}" method="post">
+                                                                <button type="submit" class="btn btn-danger">Удалить
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--конец модального-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 150px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

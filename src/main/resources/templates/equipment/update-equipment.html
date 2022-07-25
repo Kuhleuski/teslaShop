@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <th:block th:replace="~{head}"></th:block>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container wrapper" style="margin:0px;">
+    <div class="row content" style="margin-right: -6%;">
+        <div th:replace="~{blocks/sidebar-components}"></div>
+        <div class="col-md-10" style="background-color: white;">
+            <div class="container-fluid"
+                 style="padding:  25px 0px 10px 0px;margin-bottom: 0px;">
+                <div class="row">
+                    <div class="col-md-2" style="text-align: right;">
+                        <a th:href="@{/equipment}" type="button" class="btn btn-secondary">Вернуться назад</a>
+                    </div>
+                    <div class="col-md-10">
+                        <p style="margin-top: 7px;color: #646464;" th:text="${title}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="padding: 0px">
+                <div class="row">
+                    <div class="col-md-11" style="margin-top: 2%;margin-left: 5%;">
+                        <form method="post">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <h4>Редактировать комплектацию <span th:text="${equipment.name}"></span></h4>
+                                    <h5>Для кузова Tesla <span th:text="${equipment.body.name}"></span></h5>
+                                    <div class="col-md-4" style="margin-right: 25px;">
+                                        <input type="hidden" th:value="${equipment.id}" name="id" />
+                                        <br>
+                                        <br>
+                                        <h5>Название комплектации</h5>
+                                        <input name="name"  th:value="${equipment.name}" required class="form-control"/>
+                                        <br><br>
+                                        <h5>Двигатель:</h5>
+                                        <select class="form-select" aria-label="Default select example" name="engineId" >
+                                            <option selected value="" th:value="${equipment.engine.id}"
+                                                    th:text="${equipment.engine.name}"></option>
+                                            <option  th:each="engine : ${allEngines}" th:value="${engine.id}"
+                                                     th:text="${engine.name}"></option>
+                                        </select>
+                                        <br><br>
+                                        <h5>Батарея:</h5>
+                                        <select class="form-select" aria-label="Default select example" name="batteryId" >
+                                            <option selected th:value="${equipment.battery.id}"
+                                                    th:text="${equipment.battery.capacity}"></option>
+                                            <option th:each="battery : ${allBattery}" th:value="${battery.id}"
+                                                    th:text="${battery.capacity}"></option>
+                                        </select>
+                                        <input type="hidden" th:value="${equipment.body.id}" name="bodyId" readonly />
+                                    </div>
+                                    <div class="col-md-4">
+                                        <br>
+                                        <br>
+                                        <h5>Разгон до 100 км/ч:</h5>
+                                        <input type="number" step="0.01" min="0" name="accelerate" th:value="${equipment.accelerate}" required
+                                               class="form-control">
+                                        <br><br>
+                                        <h5>Максимальная скорость: </h5>
+                                        <input type="number" min="0" name="maxSpeed" th:value="${equipment.maxSpeed}"  required class="form-control">
+                                        <br><br>
+                                        <h5>Сохранить изменения</h5>
+                                        <a type="button" class="btn btn-secondary" th:href="@{/equipment}">Отмена</a>
+                                        <input type="submit" value="Сохранить" class="btn btn-success"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div th:insert="~{blocks/footer2}" style="margin-top: 100px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

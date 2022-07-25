@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new Battery</title>
+    <th:block th:replace="~{head}"></th:block>
+    <style>
+        input[type='number'] {
+            -moz-appearance: textfield;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{blocks/navbar-admin}"></div>
+<div class="container-fluid" style="padding:  25px 0px 10px 0px;background-color: #f1f6fc;">
+    <div class="row">
+        <div class="col-md-3" style="text-align: right;"><a th:href="@{/equipment}">
+            <button type="button" class="btn btn-link">&crarr; Вернуться к списку комплектаций</button>
+        </a></div>
+        <div class="col-md-9"><p style="margin-top: 7px;color: #646464;">/ Создать новую комплектацию</p></div>
+    </div>
+</div>
+<div class="container-fluid" style="padding: 0px">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-7" style="margin-top: 30px;">
+            <h3 style="margin-bottom: 50px;">Добавить новую комплектацию</h3>
+            <p style="background-color: #f1f6fd;
+    padding: 30px 40px;
+    border-radius: 5px;"><span style="font-size: 17px;font-weight: 600;">Важно! </span>Чтобы создать новую комплектацию,
+                убедитесь в том что созданы
+                все необходимые для этого компоненты.
+                Если их нет, то их нужно создать.<br>
+                <a th:href="@{/engine/create-new-engine}"><span> Создать двигатель</span></a>
+                <a th:href="@{/battery/create-new-battery}" style="margin-left: 15px;"><span>Создать батарею</span></a>
+            </p>
+            <br>
+            <form th:method="POST" th:action="@{/equipment/create-new-equipment}">
+                <h4 style="margin-top:20px;">Название</h4>
+                <input class="form-control" name="name" required placeholder="Введите название комплектации"
+                       autocomplete="off" style="min-width: 250px;margin-bottom: 30px;"/>
+                <br>
+                <h4>Двигатель</h4>
+                <select class="form-select" aria-label="Default select example" name="engineId" required>
+                    <option selected disabled>Выберите двигатель</option>
+                    <option th:each="engine : ${allEngines}"
+                            th:text="${engine.name}+' (мощность: '+${engine.power}+' л/с)'"
+                            th:value="${engine.id}"></option>
+                </select>
+                <br>
+                <input type="number" name="maxSpeed" placeholder="Максимальная скорость, Км/ч" class="form-control"
+                       required autocomplete="off"/>
+                <br>
+                <h4>Батарея</h4>
+                <select class="form-select" aria-label="Default select example" name="batteryId" required>
+                    <option selected disabled>Выберите батарею</option>
+                    <option th:each="battery : ${allBattery}" th:text="${battery.capacity}"
+                            th:value="${battery.id}"></option>
+                </select>
+                <br>
+                <input type="number" step="0.01" min="0" name="accelerate" placeholder="Разгон до 100, Км/ч"
+                       class="form-control" required autocomplete="off"/>
+                <br>
+                <a type="button" class="btn btn-secondary" th:href="@{/equipment}">Отмена</a>
+                <input type="submit" value="Создать кузов" class="btn btn-success"/>
+            </form>
+        </div>
+        <div class="col-md-4" style="margin-top: 130px;">
+        </div>
+    </div>
+</div>
+<div th:insert="~{blocks/footer}" style="margin-top: 150px;"></div>
+</body>
+</html>
